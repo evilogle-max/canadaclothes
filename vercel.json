@@ -10,10 +10,5 @@
     "PRINTIFY_TOKEN": "",
     "PRINTIFY_SHOP_ID": ""
   },
-  "functions": {
-    "src/pages/api/**/*.js": {
-      "runtime": "nodejs20.x"
-    }
-  },
   "public": true
 }
