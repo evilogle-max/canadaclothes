@@ -1,0 +1,236 @@
+/* filepath: src/css/animations.css */
+/* Loading, transitions, and interactive animations */
+
+/* Loading Spinner */
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--color-gray);
+  border-top-color: var(--color-black);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+/* Loading State */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--spacing-lg);
+  min-height: 60vh;
+  text-align: center;
+}
+
+.loading-state p {
+  font-size: 14px;
+  color: var(--color-gray-dark);
+}
+
+/* Error State */
+.error-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+}
+
+.error-card {
+  background: #fff5f5;
+  border: 1px solid #fe6b6b;
+  border-radius: var(--radius);
+  padding: var(--spacing-xl);
+  max-width: 400px;
+  text-align: center;
+}
+
+.error-card h2 {
+  color: #c92a2a;
+  font-size: 18px;
+  margin-bottom: var(--spacing-md);
+}
+
+.error-card p {
+  color: var(--color-gray-dark);
+  font-size: 14px;
+  margin-bottom: var(--spacing-lg);
+}
+
+.retry-btn {
+  background: #c92a2a;
+  color: white;
+  border: none;
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border-radius: var(--radius);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.retry-btn:hover {
+  background: #a61e4d;
+}
+
+/* View Header */
+.view-header {
+  text-align: center;
+  margin-bottom: var(--spacing-xl);
+  padding: var(--spacing-xl) 0;
+}
+
+.view-header h1 {
+  font-size: 32px;
+  font-weight: 400;
+  letter-spacing: -0.5px;
+  margin-bottom: var(--spacing-sm);
+}
+
+.view-subtitle {
+  font-size: 14px;
+  color: var(--color-gray-dark);
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.products-view {
+  animation: fadeIn 0.3s ease-in;
+}
+
+/* Button Interactions */
+button {
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+button:active {
+  transform: scale(0.98);
+}
+
+/* Focus State for Accessibility */
+button:focus-visible,
+a:focus-visible {
+  outline: 2px solid var(--color-black);
+  outline-offset: 2px;
+}
+
+/* Smooth scrolling for cart drawer */
+.cart-items::-webkit-scrollbar {
+  width: 8px;
+}
+
+.cart-items::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.cart-items::-webkit-scrollbar-thumb {
+  background: var(--color-gray);
+  border-radius: 4px;
+}
+
+.cart-items::-webkit-scrollbar-thumb:hover {
+  background: var(--color-gray-dark);
+}
+
+/* Pulse for cart badge when item added */
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.2);
+  }
+}
+
+.cart-badge.pulse {
+  animation: pulse 0.4s ease-in-out;
+}
+
+/* Modal backdrop blur transition */
+@keyframes overlayFadeIn {
+  from {
+    backdrop-filter: blur(0px);
+  }
+  to {
+    backdrop-filter: blur(2px);
+  }
+}
+
+.cart-overlay.open {
+  animation: overlayFadeIn 0.5s forwards;
+}
+
+/* Slide in for drawer */
+@keyframes slideIn {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+.cart-overlay.open .cart-drawer {
+  animation: slideIn 0.5s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+}
+
+/* Stagger animation for grid items */
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.product {
+  animation: fadeInUp 0.3s ease-out backwards;
+}
+
+.product:nth-child(1) { animation-delay: 0ms; }
+.product:nth-child(2) { animation-delay: 50ms; }
+.product:nth-child(3) { animation-delay: 100ms; }
+.product:nth-child(4) { animation-delay: 150ms; }
+.product:nth-child(5) { animation-delay: 200ms; }
+.product:nth-child(6) { animation-delay: 250ms; }
+.product:nth-child(7) { animation-delay: 300ms; }
+.product:nth-child(8) { animation-delay: 350ms; }
+.product:nth-child(9) { animation-delay: 400ms; }
+.product:nth-child(10) { animation-delay: 450ms; }
+.product:nth-child(n+11) { animation-delay: 500ms; }
+
+/* Loading placeholder shimmer */
+@keyframes shimmer {
+  0% {
+    background-position: -1000px 0;
+  }
+  100% {
+    background-position: 1000px 0;
+  }
+}
+
+.shimmer {
+  background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
+  background-size: 1000px 100%;
+  animation: shimmer 2s infinite;
+}
