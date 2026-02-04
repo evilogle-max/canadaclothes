@@ -4,21 +4,11 @@
   "buildCommand": "npm run build",
   "devCommand": "npm run dev",
   "env": {
-    "SUPABASE_URL": {
-      "default": ""
-    },
-    "SUPABASE_ANON_KEY": {
-      "default": ""
-    },
-    "SUPABASE_SERVICE_ROLE_KEY": {
-      "default": ""
-    },
-    "PRINTIFY_TOKEN": {
-      "default": ""
-    },
-    "PRINTIFY_SHOP_ID": {
-      "default": ""
-    }
+    "SUPABASE_URL": "",
+    "SUPABASE_ANON_KEY": "",
+    "SUPABASE_SERVICE_ROLE_KEY": "",
+    "PRINTIFY_TOKEN": "",
+    "PRINTIFY_SHOP_ID": ""
   },
   "functions": {
     "src/pages/api/**/*.js": {
