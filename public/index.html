@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- Character Encoding & Viewport (Critical for Core Web Vitals) -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  
+  <!-- SEO: Core Metadata -->
+  <meta name="description" content="Premium Canadian-made apparel and accessories. Shop sustainable fashion with 5+ product angles, detailed sizing, and fabric authenticity.">
+  <meta name="keywords" content="canadian fashion, sustainable apparel, handmade clothing, ethical fashion">
+  <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+  <meta name="language" content="English">
+  <meta name="revisit-after" content="7 days">
+  <meta name="author" content="CanadaClothes.ca">
+  
+  <!-- Theme & Branding -->
+  <meta name="theme-color" content="#000000">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  
+  <!-- Open Graph (Social & AI Overviews) -->
+  <meta property="og:title" content="CanadaClothes.ca - Premium Canadian Fashion">
+  <meta property="og:description" content="Sustainable, handcrafted Canadian apparel. Shop dresses, shirts, and accessories with verified authenticity.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://canadaclothes.ca">
+  <meta property="og:image" content="https://canadaclothes.ca/og-image.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="CanadaClothes.ca - Premium Canadian Fashion">
+  <meta name="twitter:description" content="Sustainable Canadian apparel, handcrafted with authenticity.">
+  <meta name="twitter:image" content="https://canadaclothes.ca/og-image.jpg">
+  <meta name="twitter:site" content="@canadaclothes">
+  
+  <!-- Canonical & Alternate URLs -->
+  <link rel="canonical" href="https://canadaclothes.ca">
+  <link rel="alternate" hreflang="en" href="https://canadaclothes.ca">
+  
+  <!-- Preconnect to Critical Resources (Core Web Vitals: LCP optimization) -->
+  <link rel="preconnect" href="https://api.printify.com" crossorigin>
+  <link rel="preconnect" href="https://supabase.co" crossorigin>
+  <link rel="dns-prefetch" href="https://api.printify.com">
+  <link rel="dns-prefetch" href="https://supabase.co">
+  
+  <!-- Preload Critical Hero Images (LCP <2.5s optimization) -->
+  <!-- These will be dynamically populated based on first 3 products -->
+  <link rel="preload" as="image" href="https://via.placeholder.com/400x500?text=Product" imagesrcset="" type="image/webp">
+  
+  <!-- Favicon -->
+  <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><text y='28' font-size='28' font-weight='bold'>CA</text></svg>">
+  
+  <!-- Title -->
+  <title>CanadaClothes.ca - Premium Canadian-Made Fashion & Sustainable Apparel</title>
+  
+  <!-- CSS (Critical Path) -->
+  <link rel="stylesheet" href="/css/base.css">
+  <link rel="stylesheet" href="/css/layout.css">
+  <link rel="stylesheet" href="/css/components.css">
+  <link rel="stylesheet" href="/css/animations.css">
+  
+  <!-- JSON-LD Schema (Organization - injected on page load) -->
+  <!-- Additional schemas injected dynamically via schema-manager.js -->
+</head>
+<body>
+  <!-- Cart Overlay & Drawer -->
+  <div class="cart-overlay" id="cartOverlay">
+    <div class="cart-drawer" id="cartDrawer">
+      <div class="cart-header">
+        <h2 class="cart-title">Shopping Bag</h2>
+        <button class="cart-close" id="cartClose" aria-label="Close cart">✕</button>
+      </div>
+      
+      <div class="cart-items" id="cartItems">
+        <div class="empty-cart">
+          <p class="empty-msg">Your bag is empty</p>
+          <button class="continue-shop" id="continueShopping">Continue Shopping</button>
+        </div>
+      </div>
+      
+      <div class="cart-footer">
+        <div class="cart-total">
+          <span>Total</span>
+          <span id="cartTotal">$0.00</span>
+        </div>
+        <div class="cart-hint">Shipping and taxes calculated at checkout</div>
+        <button class="checkout-btn" id="checkoutBtn" disabled>Checkout</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Main Header -->
+  <header class="header">
+    <div class="header-content">
+      <a href="/" class="logo">
+        <svg width="24" height="24" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <text y="26" font-size="24" font-weight="bold" fill="currentColor">CA</text>
+        </svg>
+        <span>CanadaClothes</span>
+      </a>
+      <nav class="nav">
+        <a href="/" class="nav-link active">Shop</a>
+        <a href="#" class="nav-link">About</a>
+        <a href="#" class="nav-link">Contact</a>
+      </nav>
+      <button class="cart-btn" id="cartOpenBtn" aria-label="Open shopping cart">
+        <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <circle cx="9" cy="22" r="1" fill="currentColor"/>
+          <circle cx="20" cy="22" r="1" fill="currentColor"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge"></span>
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main">
+    <!-- Loading State -->
+    <div class="loading-state" id="loadingState">
+      <div class="spinner"></div>
+      <p>Loading products...</p>
+    </div>
+
+    <!-- Error State -->
+    <div class="error-state" id="errorState" style="display: none;">
+      <div class="error-card">
+        <h2>Unable to Load Products</h2>
+        <p id="errorMessage">Please try again later</p>
+        <button class="retry-btn" id="retryBtn">Retry</button>
+      </div>
+    </div>
+
+    <!-- Products Grid -->
+    <div class="products-view" id="productsView" style="display: none;">
+      <div class="view-header">
+        <h1>Premium Canadian-Made Fashion</h1>
+        <p class="view-subtitle">Discover our latest sustainable, ethically-crafted collection designed for modern living</p>
+      </div>
+      
+      <!-- SEO: Product Information Schema & Breadcrumb -->
+      <nav class="breadcrumb-nav" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><span>Shop</span></li>
+        </ol>
+      </nav>
+      
+      <div class="grid" id="productGrid" role="list"></div>
+      
+      <!-- Q-A-V Framework Section (Generative Engine Optimization) -->
+      <section class="qav-faq-section">
+        <h2>Common Questions About Our Collection</h2>
+        <div class="qav-container">
+          <article class="qav-item">
+            <h3>What fabrics does CanadaClothes.ca use?</h3>
+            <p class="atomic-answer">We source premium, certified sustainable materials including organic cotton, linen blends, and recycled fibers. All fabrics are tested for durability and comfort, with certifications from GOTS (Global Organic Textile Standard) and Fair Trade Certified.</p>
+          </article>
+          <article class="qav-item">
+            <h3>Are CanadaClothes.ca products ethically made?</h3>
+            <p class="atomic-answer">Yes. All products are manufactured in Canada by artisans earning fair wages. We partner directly with textile mills and manufacturers, ensuring transparent supply chains and supporting local economies.</p>
+          </article>
+          <article class="qav-item">
+            <h3>How should I size CanadaClothes.ca apparel?</h3>
+            <p class="atomic-answer">Our sizing follows Canadian standards. Most pieces run true to size. Each product includes detailed measurements, fabric composition, and care instructions. If unsure, order your typical size or contact support for personalized fitting advice.</p>
+          </article>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h4>About</h4>
+        <p>Premium Canadian-made apparel and accessories for the modern lifestyle.</p>
+      </div>
+      <div class="footer-section">
+        <h4>Links</h4>
+        <ul>
+          <li><a href="#">Shop</a></li>
+          <li><a href="#">About</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
+        <h4>Support</h4>
+        <ul>
+          <li><a href="#">Shipping</a></li>
+          <li><a href="#">Returns</a></li>
+          <li><a href="#">FAQ</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2024 CanadaClothes.ca. All rights reserved.</p>
+      <p>Made in Canada 🍁</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/js/utils.js"></script>
+  <script src="/js/store.js"></script>
+  <script src="/js/schema-manager.js"></script>
+  <script src="/js/performance-optimizer.js"></script>
+  <script src="/js/image-optimizer.js"></script>
+  <script src="/js/qav-framework.js"></script>
+  <script src="/js/api-client.js"></script>
+  <script src="/js/checkout.js"></script>
+  <script src="/js/app.js"></script>
+  
+  <script>
+    // Initialize SEO Schema Manager and App when DOM is ready
+    document.addEventListener('DOMContentLoaded', async () => {
+      // Initialize Schema Manager for 2026 SEO (Generative Engine Optimization)
+      const schemaManager = new SchemaManager();
+      
+      // Inject Organization schema (E-E-A-T: Expertise, Trustworthiness)
+      schemaManager.injectOrganizationSchema();
+      
+      // Inject Homepage Breadcrumb
+      schemaManager.injectBreadcrumbSchema([
+        { name: 'Shop', url: '/#products' }
+      ]);
+      
+      // Initialize main app (with performance optimization)
+      const app = new App();
+      await app.init();
+      
+      // After products load, inject ProductGroup schema for each product
+      const productsContainer = document.getElementById('productGrid');
+      if (productsContainer && window.store && window.store.products.length > 0) {
+        // Inject schema for first 3 products (reduce DOM clutter, focus on top items)
+        window.store.products.slice(0, 3).forEach(product => {
+          schemaManager.injectProductGroupSchema(product, [
+            {
+              sku: `${product.id}-default`,
+              title: 'Default',
+              price: product.price,
+              color: 'Default'
+            }
+          ]);
+        });
+      }
+      
+      // Log performance metrics (Core Web Vitals monitoring)
+      console.log('📊 Core Web Vitals Monitoring initialized');
+      if (window.PerformanceOptimizer) {
+        const perfOptimizer = new window.PerformanceOptimizer();
+        perfOptimizer.initWebVitalsMonitoring();
+        window.perfOptimizer = perfOptimizer;
+      }
+      
+      // Cleanup on page unload
+      window.addEventListener('beforeunload', () => {
+        if (app && app.dispose) {
+          app.dispose();
+        }
+      });
+      
+      // Expose to window for debugging
+      window.app = app;
+      window.store = app.store;
+      window.schemaManager = schemaManager;
+    });
+  </script>
+</body>
+</html>
